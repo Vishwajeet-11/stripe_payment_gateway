@@ -1,16 +1,26 @@
-name: Deploy on Self-Hosted Runner
+name: Notify on Push to Development
 
 on:
   push:
     branches:
-      - development  # Run this when code is pushed to development
+      - development  # Runs when code is pushed to development branch
 
 jobs:
-  deploy:
-    runs-on: self-hosted  # This tells GitHub to use your local runner
+  notify:
+    runs-on: self-hosted  # Uses your self-hosted runner
+
     steps:
-      - name: Checkout Repository
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Print a message
-        run: echo "Hello, self-hosted runner is working!"  # This is just a test
+      - name: ✉️ Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "🚀 New Push to Development Branch"
+          to: "vishwajeebharadiya12@gmail.com"
+          from: "GitHub Actions <${{ secrets.EMAIL_USER }}>"
+          body: "A new commit has been pushed to the development branch."
