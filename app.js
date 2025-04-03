@@ -1,11 +1,16 @@
-require("dotenv").config();
+const express = require("express");
+const app = express();
+const path = require("path");
+const paymentRoute = require("./routes/payment.route");
 
-const app = require('express')();
+// ✅ Set view engine here
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views")); // Correct view path
 
-var http = require('http').Server(app);
+// ✅ Mount the payment routes
+app.use("/payment", paymentRoute);
 
-app.use('/', paymentRoute);
-
-http.listen(3000, function(){
-    console.log(`server started at port 3000`);
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});

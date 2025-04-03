@@ -1,20 +1,14 @@
 const express = require("express");
-const paymentRoute = express();
+const paymentRoute = express.Router(); // ✅ Use Router()
 
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
+const paymentController = require("../controllers/payment.controller"); // ✅ Correct import
+
+// Middleware for parsing JSON and URL-encoded data
 paymentRoute.use(bodyParser.json());
-paymentRoute.use(bodyParser.urlencoded({extended: false}));
+paymentRoute.use(bodyParser.urlencoded({ extended: false }));
 
-const path = require("path");
-const { emitWarning } = require("process");
+// ✅ Ensure functions are correctly assigned
+paymentRoute.get("/", paymentController.renderBuyPage); // ✅ Works now
 
-paymentRoute.set('view engine', 'ejs');
-paymentRoute.set('views', path.join(__dirname, '../views'));
-
-const paymentController = require("../controllers/payment.controller");
-paymentRoute.get("/", paymentController.renderBuyPage);
-paymentRoute.post("/payment", paymentController.payment);
-paymentRoute.get("/success", paymentController.success);
-paymentRoute.get("/failure", paymentController.failure);
-
-module.exports = paymentRoute
+module.exports = paymentRoute;
