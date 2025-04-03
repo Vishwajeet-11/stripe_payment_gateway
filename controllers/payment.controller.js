@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-
+// another comment because of the obvious reasons
 const renderBuyPage = async (req, res) => {
     try {
         res.render("buy", {

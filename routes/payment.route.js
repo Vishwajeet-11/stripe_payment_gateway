@@ -7,6 +7,7 @@ const paymentController = require("../controllers/payment.controller"); // ✅ C
 // Middleware for parsing JSON and URL-encoded data
 paymentRoute.use(bodyParser.json());
 paymentRoute.use(bodyParser.urlencoded({ extended: false }));
+// added this comment to check the workflow performance while merging the code
 
 // ✅ Ensure functions are correctly assigned
 paymentRoute.get("/", paymentController.renderBuyPage); // ✅ Works now
