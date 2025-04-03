@@ -1,0 +1,16 @@
+name: Deploy on Self-Hosted Runner
+
+on:
+  push:
+    branches:
+      - development  # Run this when code is pushed to development
+
+jobs:
+  deploy:
+    runs-on: self-hosted  # This tells GitHub to use your local runner
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Print a message
+        run: echo "Hello, self-hosted runner is working!"  # This is just a test
